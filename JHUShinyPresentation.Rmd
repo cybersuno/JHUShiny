@@ -1,0 +1,95 @@
+---
+title: "JHUShiny Presentation"
+author: "cybersuno"
+date: "20/2/2021"
+output: slidy_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+
+## Purpose
+
+The objective of this presentation is to show the shiny application developed as part of the Johns Hopkins University week 4 for the _Developing Data Products_ course.
+
+The purpose of the application is to show the linear regression between the different variables in the mtcars dataset. For this, two variables are selected and a linear model (lm) is fitted.
+The application shows the coefficients for the linear model and a plot with the two variables and the correlation.
+
+The _mtcars_ dataset has the following structure
+```{r dataset}
+str(mtcars)
+```
+
+## Application Input
+The application requires two variables:
+
+* Y var: this is the variable to be in the Y axis, and the variable to be estimated
+* X var: this is the variable to be in the X axis, and the predictor in the model
+
+The model is fitted with the following formula:
+Y ~ X
+
+We can build an example for the variables:
+
+* Y = mpg
+* X = disp
+
+```{r model_fitted, echo=TRUE}
+fit<-lm(mpg ~ disp,data=mtcars)
+
+``` 
+
+## Application Output: coefficients
+The output is divided in two elements: coefficients for the model and plot with the regression
+
+The coefficients are:
+
+* Intercept
+* Slope for the predictor
+
+Each line have four entries. The information is the same as when the model is summarized:
+
+* The value
+* The standard error
+* T value
+* p-value
+
+In our example, information showed could be:
+```{r coefficients}
+summary(fit)$coefficients
+```
+
+## Application Output: plot
+
+A single plot is showed in which we can find:
+
+* The points with the values for both of the variables in each axis
+* The regression line calculated for the model
+
+In our example:
+
+```{r plot}
+plot(mpg ~ disp,xlab="disp",ylab="mpg",data=mtcars)
+abline(fit)
+```
+
+
+## Application Structure and link
+
+Application is structured in a sidebar with the two combos to select the variables.
+
+
+Anytime a variable is selected, reactively a new model is fitted and new output is calculated
+
+If the same variable is selected for Y and X axis, no coefficients are calculated
+
+
+The web can be accessed through the following link:
+[Application](http://www.google.es)
+
+The github repository link for the application (and this presentation) is the following:
+[GitHub Link](https://github.com/cybersuno/JHUShiny)
+
